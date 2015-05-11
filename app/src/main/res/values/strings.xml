@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Daily Weight Log</string>
+    <string name="edit_weight">Enter a weight</string>
+    <string name="submit_weight">Submit Weight</string>
+    <string name="action_show_log">Weight Log</string>
+    <string name="action_add_weight">Add Weight</string>
+    <string name="title_activity_show_log">Your Weight Log</string>
+
+</resources>
