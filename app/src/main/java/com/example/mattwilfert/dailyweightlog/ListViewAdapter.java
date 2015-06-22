@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.app.Activity;
+import android.widget.Button;
 import android.widget.TextView;
 
 import static com.example.mattwilfert.dailyweightlog.Constants.WEIGHT_COLUMN;
@@ -21,12 +22,17 @@ import static com.example.mattwilfert.dailyweightlog.Constants.DATE_COLUMN;
  */
 public class ListViewAdapter extends BaseAdapter{
     public ArrayList<HashMap<String, String>> list;
+    private WeightsDataSource datasource;
     Activity activity;
+    List<Weight> all_weights;
 
-    public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list){
+
+    public ListViewAdapter(Activity activity, ArrayList<HashMap<String, String>> list, List<Weight> all_weights, WeightsDataSource datasource){
         super();
         this.activity=activity;
         this.list=list;
+        this.datasource= datasource;
+        this.all_weights = all_weights;
     }
 
     public int getCount(){
@@ -46,7 +52,7 @@ public class ListViewAdapter extends BaseAdapter{
         TextView txtDate;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
 
         ViewHolder holder;
 
@@ -59,6 +65,18 @@ public class ListViewAdapter extends BaseAdapter{
 
             holder.txtWeight=(TextView) convertView.findViewById(R.id.all_weights_list);
             holder.txtDate=(TextView) convertView.findViewById(R.id.all_weights_date_list);
+            Button deleteBtn = (Button)convertView.findViewById(R.id.delete_btn);
+
+            deleteBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    //do something
+                    list.remove(position); //or some other task
+                    datasource.deleteWeight(all_weights.get(position));
+                    all_weights = datasource.getAllWeights();
+                    notifyDataSetChanged();
+                }
+            });
 
             convertView.setTag(holder);
         }else{

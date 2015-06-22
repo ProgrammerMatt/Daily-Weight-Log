@@ -37,8 +37,13 @@ public class ShowLog extends ActionBarActivity {
         setContentView(R.layout.activity_show_log);
 
         ListView listView = (ListView)findViewById(R.id.listView);
+
+        datasource = new WeightsDataSource(this);
+        datasource.open();
+        all_weights = datasource.getAllWeights();
+
         populateList();
-        ListViewAdapter adapter = new ListViewAdapter(this, list);
+        ListViewAdapter adapter = new ListViewAdapter(this, list, all_weights, datasource);
         listView.setAdapter(adapter);
 
 
@@ -49,10 +54,6 @@ public class ShowLog extends ActionBarActivity {
     private void populateList(){
         list = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> temp;
-
-        datasource = new WeightsDataSource(this);
-        datasource.open();
-        all_weights = datasource.getAllWeights();
 
         Toast.makeText(getApplicationContext(), all_weights.get(0).getDate(), Toast.LENGTH_SHORT).show();
 
@@ -65,6 +66,8 @@ public class ShowLog extends ActionBarActivity {
         }
 
     }
+
+
 
 
     @Override
