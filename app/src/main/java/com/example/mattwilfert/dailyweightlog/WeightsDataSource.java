@@ -34,8 +34,8 @@ public class WeightsDataSource {
 
     public Weight createWeight(double weight, String date) {
         ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_DATE, date);
         values.put(MySQLiteHelper.COLUMN_WEIGHT, weight);
-        values.put(MySQLiteHelper.COLUMN_DATE, ""+ 2);
         long insertId = database.insert(MySQLiteHelper.TABLE_WEIGHTS, null,
                 values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_WEIGHTS,
@@ -92,6 +92,7 @@ public class WeightsDataSource {
         Weight Weight = new Weight();
         Weight.setId(cursor.getLong(0));
         Weight.setWeight(cursor.getDouble(1));
+        Weight.setDate(cursor.getString(2));
         return Weight;
     }
 }

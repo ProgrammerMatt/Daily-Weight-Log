@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import android.util.Log;
 
 import static com.example.mattwilfert.dailyweightlog.Constants.WEIGHT_COLUMN;
 import static com.example.mattwilfert.dailyweightlog.Constants.DATE_COLUMN;
@@ -41,6 +42,7 @@ public class ShowLog extends ActionBarActivity {
         datasource = new WeightsDataSource(this);
         datasource.open();
         all_weights = datasource.getAllWeights();
+
 
         populateList();
         ListViewAdapter adapter = new ListViewAdapter(this, list, all_weights, datasource);

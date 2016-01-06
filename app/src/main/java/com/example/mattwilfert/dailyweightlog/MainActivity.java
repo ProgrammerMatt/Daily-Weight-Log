@@ -1,14 +1,17 @@
 package com.example.mattwilfert.dailyweightlog;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -53,7 +56,11 @@ public class MainActivity extends ActionBarActivity {
         boolean add_weight_success;
         double weight;
         Weight newWeight = new Weight();
-        String date = "hi";
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+
+        String date = dateFormat.format(cal.getTime());
         datasource = new WeightsDataSource(this);
         datasource.open();
 
@@ -76,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
             }
 
             if(add_weight_success == true){
-                //Toast.makeText(getApplicationContext(), date, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), date, Toast.LENGTH_SHORT).show();
                 datasource.createWeight(weight, date);
             }
         }
